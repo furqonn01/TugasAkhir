@@ -13,6 +13,7 @@
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\FungsionalController;
 use App\Http\Controllers\GolonganController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\StrukturalController;
 use App\Http\Controllers\TambahanController;
@@ -26,9 +27,12 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/list', [PegawaiController::class, 'index']);
     Route::prefix('pegawai')->group(function () {
+        Route::get('/', [PegawaiController::class, 'home']);
+        Route::get('/grafik', [GrafikController::class, 'index']);
         Route::get('hapus/{id}', [PegawaiController::class, 'hapus']);
         Route::get('profile/{id}', [PegawaiController::class, 'profile']);
         Route::post('tambah', [PegawaiController::class, 'create']);
+        Route::post('edit/{id}', [PegawaiController::class, 'edit']);
         Route::get('cetak', [PegawaiController::class, 'cetak']);
         Route::get('cetak_profil/{id}', [PegawaiController::class, 'cetakProfile']);
         Route::get('export', [PegawaiController::class, 'export']);

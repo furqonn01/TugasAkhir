@@ -31,10 +31,11 @@
                 <th>Nama</th>
                 <th>NIP</th>
                 <th>Usia</th>
+                <th>Agama</th>
+                <th>Pangkat</th>
+                <th>Gol</th>
+                <th>Ruang</th>
                 <th>Jenis Kelamin</th>
-                {{-- <th>Pangkat</th>
-                <th>Golongan</th>
-                <th>Ruang</th> --}}
                 <th>Alamat</th>
                 <th>No Telp</th>
             </tr>
@@ -44,12 +45,13 @@
             @foreach($pegawai as $p)
             <tr>
                 <td>{{ $i++ }}</td>
-                <td>{{$p->nama}}</td>
+                <td>{{$p->gelar_depan}}. {{$p->nama}}, {{$p->gelar_belakang}}</td>
                 <td>{{$p->nip_baru}}</td>
                 <td>{{$p->age}} Tahun</td>
-                {{-- <td>{{$p->golongan->pangkat}}</td>
+                <td> {{$p->agama->nama}} </td>
+                <td>{{$p->golongan->pangkat}}</td>
                 <td>{{$p->golongan->golongan}}</td>
-                <td>{{$p->golongan->ruang}}</td> --}}
+                <td>{{$p->golongan->ruang}}</td>
                 <td>@if($p->jns_kelamin == 'L')Laki-laki @else Perempuan @endif</td>
                 <td>{{$p->alamat}}</td>
                 <td>{{$p->telepon}}</td>

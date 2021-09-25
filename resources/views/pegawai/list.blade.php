@@ -189,7 +189,7 @@
                                                                     <label for="inputNip">NIP</label>
                                                                     <input type="number" class="form-control"
                                                                         value="{{$p->nip_baru}}" id="inputNip"
-                                                                        name="nip" required>
+                                                                        name="nip_baru" required>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="inputNama">Nama</label>
@@ -197,27 +197,62 @@
                                                                         value="{{$p->nama}}" id="inputNama" name="nama"
                                                                         required>
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="form-row">
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="inputTtl">Tempat</label>
-                                                                    <input type="text" name="t_lahir"
-                                                                        value="{{$p->t_lahir}}" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="inputTgl">Tgl Lahir</label>
-                                                                    <input type="date" name="tgl_lahir"
-                                                                        value="{{$p->tgl_lahir}}" class="form-control">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputNama">Gelar Depan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{$p->gelar_depan}}" id="inputNama"
+                                                                        name="gelar_depan" required>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="inputTgl">No.Telp</label>
-                                                                    <input type="number" id="inputTgl" name="no_telp"
-                                                                        value="{{$p->no_telp}}" class="form-control">
+                                                                    <label for="inputNama">Gelar Belakang</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{$p->gelar_belakang}}" id="inputNama"
+                                                                        name="gelar_belakang" required>
                                                                 </div>
                                                             </div>
 
                                                             <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputNama">Email</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{$p->email}}" id="inputNama"
+                                                                        name="email" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputNama">NIP Lama</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{$p->nip_lama}}" id="inputNama"
+                                                                        name="nip_lama" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputTtl">Tempat</label>
+                                                                    <input type="text" name="tempat_lahir"
+                                                                        value="{{$p->tempat_lahir}}"
+                                                                        class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputTgl">Tgl Lahir</label>
+                                                                    <input type="date" name="tanggal_lahir"
+                                                                        value="{{$p->tanggal_lahir}}"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="inputFoto">Foto</label>
+                                                                    <hr>
+                                                                    <input class="input" type="file"
+                                                                        class="form-control" name="foto" id="inputFoto">
+                                                                    <hr>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputTgl">No.Telp</label>
+                                                                    <input type="number" id="inputTgl" name="telepon"
+                                                                        value="{{$p->telepon}}" class="form-control">
+                                                                </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="inputKelamin">Jenis Kelamin</label>
                                                                     <select name="jns_kelamin" id="inputKelamin"
@@ -232,80 +267,68 @@
 
                                                                 <div class="form-group col-md-6">
                                                                     <label for="inputStatus">Status Pegawai</label>
-                                                                    <select name="sts_pegawai" id="inputStatus"
+                                                                    <select name="status" id="inputStatus"
                                                                         class="form-control" required>
                                                                         <option>---</option>
                                                                         <option value="Aktif" @if($p->status ==
                                                                             "Aktif") selected @endif >Aktif</option>
-                                                                        <option value="Tidak aktif" @if($p->status
-                                                                            == "Pensiun") selected @endif>Tidak
-                                                                            Aktif</option>
-                                                                        <option value="Tidak aktif" @if($p->status
-                                                                            == "Pindah") selected @endif>Tidak
-                                                                            Aktif</option>
-                                                                        <option value="Tidak aktif" @if($p->status
-                                                                            == "Meninggal") selected @endif>Tidak
-                                                                            Aktif</option>
+                                                                        <option value="pensiun" @if($p->status
+                                                                            == "Pensiun") selected @endif>
+                                                                            Pensiun</option>
+                                                                        <option value="pindah" @if($p->status
+                                                                            == "Pindah") selected @endif>
+                                                                            Pindah</option>
+                                                                        <option value="meninggal" @if($p->status
+                                                                            == "Meninggal") selected @endif>
+                                                                            Meninggal
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputStatus">Pangkat</label>
+                                                                    <select name="kode_gol" id="inputUser"
+                                                                        class="form-control" required>
+                                                                        <option>---</option>
+                                                                        @foreach($gol as $g)
+                                                                        <option value="{{$g->id_gol}}" @if($p->
+                                                                            kode_gol == $g->id_gol) selected
+                                                                            @endif>{{$g->pangkat}}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <!-- form row -->
                                                             </div>
 
-                                                            <div class="form-row">
-                                                                {{-- <div class="form-group col-md-6">
-                                                                    <label for="inputStatus">User</label>
-                                                                    <select name="user" id="inputUser"
-                                                                        class="form-control" required>
-                                                                        <option>---</option>
-                                                                        @foreach($user as $u)
-                                                                        <option value="{{$u->id}}" @if ($p->id_user ==
-                                                                $u->id) selected @endif >{{$u->name}}
-                                                                </option>
-                                                                @endforeach
-                                                                </select>
-                                                            </div> --}}
-                                                            <div class="form-group col-md-6">
-                                                                <label for="inputFoto">Foto</label>
-                                                                <input type="file" class="form-control" name="foto"
-                                                                    id="inputFoto">
-                                                            </div>
                                                     </div>
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-8">
+                                                        <div class="form-group col-md-6">
                                                             <label for="inputKarpeg">Alamat</label>
-                                                            <input type="text" value="{{$p->hobi}}" name="hobi"
+                                                            <input type="text" value="{{$p->alamat}}" name="alamat"
                                                                 id="inputKarpeg" class="form-control" required>
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="inputAskes">Tamat</label>
-                                                            <input type="date" name="tamat" value="{{$p->tmt}}"
-                                                                id="inputAskes" class="form-control" required>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputStatus">Agama</label>
+                                                            <select name="kode_agama" id="inputUser"
+                                                                class="form-control" required>
+                                                                <option>---</option>
+                                                                @foreach($agama as $a)
+                                                                <option value="{{$a->id_agama}}" @if($p->
+                                                                    kode_agama == $a->id_agama) selected
+                                                                    @endif>{{$a->nama}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <!-- form row -->
                                                     </div>
 
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="inputKarpeg">Tamat Jabatan</label>
-                                                            <input type="date" value="{{$p->tmt_jab}}"
-                                                                name="tamatjabatan" id="inputKarpeg"
-                                                                class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group col-md-8">
-                                                            <label for="inputStatus">Jabatan Struktural</label>
-                                                            <select name="jbts" id="inputUser" class="form-control"
-                                                                required>
-                                                                <option>---</option>
-                                                                @foreach($jbts as $jbts2)
-                                                                <option value="{{$jbts2->kode_jbts}}" @if($p->
-                                                                    kode_jbts == $jbts2->kode_jbts) selected
-                                                                    @endif>{{$jbts2->nama_jabatan}}</option>
-                                                                @endforeach
-                                                            </select>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputKarpeg">NIK</label>
+                                                            <input type="text" value="{{$p->nik}}" name="nik"
+                                                                id="inputKarpeg" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="inputStatus">Status Pernikahan</label>
-                                                            <select name="sts_pernikahan" id="inputUser"
+                                                            <select name="sts_marital" id="inputUser"
                                                                 class="form-control" required>
                                                                 <option>---</option>
                                                                 <option value="Menikah" @if($p->sts_marital ==
@@ -317,15 +340,14 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <!-- Tab 1 end -->
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Ubah</button></form>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Ubah</button></form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

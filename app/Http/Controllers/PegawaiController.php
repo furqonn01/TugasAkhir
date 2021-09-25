@@ -107,9 +107,23 @@ class PegawaiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function home()
     {
-        //
+        $pegawai = Pegawai::with(['agama', 'golongan'])->orderBy('nip_baru', 'DESC')->limit(5)->get();
+
+        $total_pegawai = Pegawai::all()->count();
+        $total_user = User::all()->count();
+        $lk = Pegawai::where('jns_kelamin', 'L')->count();
+        $pr = Pegawai::where('jns_kelamin', 'P')->count();
+        return view('pegawai.index', [
+            'pegawai' => $pegawai,
+            'total_pegawai' => $total_pegawai,
+            'total_user' => $total_user,
+            'lk' => $lk,
+            'pr' => $pr
+        ]);
+        // return dd($peg);
+        // return response()->json(['data' => $pegawai]);
     }
 
     /**
@@ -129,9 +143,55 @@ class PegawaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $this->validate($request, [
+            'foto' => 'required',
+            'nip_baru' => 'required',
+            'nama' => 'required',
+            'jns_kelamin' => 'required',
+            'sts_marital' => 'required',
+            'status' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'telepon' => 'required',
+            'nip_lama' => 'required', //tab 2
+            'kode_agama' => 'required',
+            'nik' => 'required',
+            'gelar_depan' => 'required',
+            'gelar_belakang' => 'required',
+            'email' => 'required',
+
+        ]);
+
+        $nip = $request->nip_baru;
+        $file = $request->file('foto');
+        $tujuan_upload = 'foto'; //nama folder
+        $file->move($tujuan_upload, $nip . '.' . $file->getClientOriginalExtension());
+
+        // insert data ke table pegawai
+        DB::table('pegawai')->where('nip_baru', $id)->update([
+            'nip_baru' => $request->nip_baru,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'nik' => $request->nik,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'telepon' => $request->telepon,
+            'jns_kelamin' => $request->jns_kelamin,
+            'status' => $request->status,
+            'foto' => $request->nip_baru . '.' . $file->getClientOriginalExtension(),
+            'nip_lama' => $request->nip_lama,
+            'kode_agama' => $request->kode_agama,
+            'kode_gol' => $request->kode_gol,
+            'gelar_depan' => $request->gelar_depan,
+            'gelar_belakang' => $request->gelar_belakang,
+            'alamat' => $request->alamat,
+            'sts_marital' => $request->sts_marital,
+        ]);
+        Alert::success('Sukses Edit', 'Data berhasil di-Edit');
+        // alihkan halaman ke halaman pegawai
+        return redirect('/list');
     }
 
     /**

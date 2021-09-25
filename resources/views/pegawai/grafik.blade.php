@@ -1,30 +1,30 @@
 @extends('layouts.induk')
 @section('konten')
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-    @if(count($errors) > 0)
-				<div class="alert alert-danger">
-					@foreach ($errors->all() as $error)
-					{{ $error }} <br/>
-					@endforeach
-				</div>
-	@endif
+    <div class="row">
+        <div class="col-md-12">
+            @if(count($errors) > 0)
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                {{ $error }} <br />
+                @endforeach
+            </div>
+            @endif
+        </div>
     </div>
-  </div>
 
-  <div class="card p-3">
+    <div class="card p-3">
         <!-- start tambah jabatan -->
 
 
-<!-- Resources -->
-<script src="{{ asset('amChart/core.js') }}"></script>
-<script src="{{ asset('amChart/chart.js') }}"></script>
-<script src="{{ asset('amChart/animated.js') }}"></script>
+        <!-- Resources -->
+        <script src="{{ asset('amChart/core.js') }}"></script>
+        <script src="{{ asset('amChart/chart.js') }}"></script>
+        <script src="{{ asset('amChart/animated.js') }}"></script>
 
-<!-- Chart code -->
-<script>
-am4core.ready(function() {
+        <!-- Chart code -->
+        <script>
+            am4core.ready(function() {
 
 // Themes begin
 am4core.useTheme(am4themes_animated);
@@ -56,13 +56,13 @@ pieSeries.hiddenState.properties.endAngle = -90;
 pieSeries.hiddenState.properties.startAngle = -90;
 
 }); // end am4core.ready()
-</script>
+        </script>
 
 
 
-<!-- Chart code -->
-<script>
-am4core.ready(function() {
+        <!-- Chart code -->
+        <script>
+            am4core.ready(function() {
 
 // Themes begin
 am4core.useTheme(am4themes_animated);
@@ -89,26 +89,28 @@ series.dataFields.value = "litres";
 series.dataFields.category = "country";
 
 }); // end am4core.ready()
-</script>
+        </script>
 
 
 
-<!-- HTML -->
-<div class="row">
-<div class="col-md-12">
-<label><h4>Laki-laki VS Perempuan</h4></label>
-<div id="chartdiv"></div>
-</div>
- </div>
+        <!-- HTML -->
+        <div class="row">
+            <div class="col-12">
+                <label>
+                    <h4>Laki-laki VS Perempuan</h4>
+                </label>
+                <div id="chartdiv"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <hr>
+                <label>
+                    <h4>Menikah VS Belum Menikah</h4>
+                </label>
+                <div id="chartdiv2"></div>
+            </div>
+        </div>
 
-<div class="row m-2"></div>
-
- <div class="row mt-4">
- <div class="col-md-12">
-<label><h4>Menikah VS Belum Menikah</h4></label>
-<div id="chartdiv2"></div>
- </div>
- </div>
-
-</div>
-@endsection
+    </div>
+    @endsection
