@@ -137,6 +137,25 @@
                             </div>
                             <hr>
 
+
+                            <div class="row">
+                                <div class="col-md-4"> NPWP
+                                </div>
+                                <div class="col-md-8"> : {{$pegawai->npwp}}
+                                </div>
+                            </div>
+                            <hr>
+
+
+
+                            <div class="row">
+                                <div class="col-md-4"> NIK
+                                </div>
+                                <div class="col-md-8"> : {{$pegawai->nik}}
+                                </div>
+                            </div>
+                            <hr>
+
                             <!-- row 6 -->
 
                             <div class="row">
@@ -207,10 +226,7 @@
                                 <div class="col-md-8"> : {{$pegawai->telepon}}
                                 </div>
                             </div>
-                            <hr>
-
-
-
+                            <br>
                             <!-- card shadow -->
                         </div>
                         <!-- col -->

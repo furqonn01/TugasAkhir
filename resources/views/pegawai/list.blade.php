@@ -87,7 +87,7 @@
                                         style="width: 220px;" aria-label="Office: activate to sort column ascending">
                                         Nama</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        style="width: 116px;" aria-label="Office: activate to sort column ascending">
+                                        style="width: 200px;" aria-label="Office: activate to sort column ascending">
                                         Tempat, Tanggal Lahir
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -95,24 +95,13 @@
                                         Jenis Kelamin
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        style="width: 116px;" aria-label="Office: activate to sort column ascending">
+                                        style="width: 100px;" aria-label="Office: activate to sort column ascending">
                                         Usia
                                     </th>
-                                    {{-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         style="width: 116px;" aria-label="Office: activate to sort column ascending">
                                         Pangkat
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        style="width: 116px;" aria-label="Office: activate to sort column ascending">
-                                        Golongan
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        style="width: 116px;" aria-label="Office: activate to sort column ascending">
-                                        Ruang
-                                    </th> --}}
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        style="width: 116px;" aria-label="Office: activate to sort column ascending">
-                                        No.Telp</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         style="width: 116px;" aria-label="Office: activate to sort column ascending">
                                         Aksi</th>
@@ -128,10 +117,7 @@
                                     <td>{{$p->tempat_lahir}}, {{$p->tanggal_lahir}}</td>
                                     <td>@if($p->jns_kelamin == 'L')Laki-Laki @else Perempuan @endif</td>
                                     <td>{{$p->age}} Tahun</td>
-                                    {{-- <td>{{$p->golongan->pangkat}}</td>
-                                    <td>{{$p->golongan->golongan}}</td>
-                                    <td>{{$p->golongan->ruang}}</td> --}}
-                                    <td>{{$p->telepon}}</td>
+                                    <td>{{$p->golongan->pangkat}}</td>
                                     <td><a class="btn btn-secondary" href="/pegawai/profile/{{$p->nip_baru}}"><i
                                                 class="fa fa-list"></i></a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -197,17 +183,23 @@
                                                                         value="{{$p->nama}}" id="inputNama" name="nama"
                                                                         required>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="inputNama">Gelar Depan</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{$p->gelar_depan}}" id="inputNama"
                                                                         name="gelar_depan" required>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="inputNama">Gelar Belakang</label>
                                                                     <input type="text" class="form-control"
                                                                         value="{{$p->gelar_belakang}}" id="inputNama"
                                                                         name="gelar_belakang" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="inputNama">NPWP</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{$p->npwp}}" id="inputNama" name="npwp"
+                                                                        required>
                                                                 </div>
                                                             </div>
 
@@ -515,15 +507,19 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-3">
                                                 <label for="inputKarsu">Gelar Depan</label>
                                                 <input type="text" name="gelar_depan" id="inputKarsu"
                                                     class="form-control">
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-3">
                                                 <label for="inputAskes">Gelar Belakang</label>
                                                 <input type="text" name="gelar_belakang" id="inputAskes"
                                                     class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputAskes">NPWP</label>
+                                                <input type="text" name="npwp" id="inputAskes" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row">
