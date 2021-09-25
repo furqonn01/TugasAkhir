@@ -111,6 +111,7 @@ series.dataFields.category = "country";
                 <div id="chartdiv2"></div>
             </div>
         </div>
-
     </div>
+
+    <br>
     @endsection

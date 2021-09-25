@@ -120,7 +120,7 @@ class PegawaiController extends Controller
             'total_pegawai' => $total_pegawai,
             'total_user' => $total_user,
             'lk' => $lk,
-            'pr' => $pr
+            'pr' => $pr,
         ]);
         // return dd($peg);
         // return response()->json(['data' => $pegawai]);
