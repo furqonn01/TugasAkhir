@@ -40,4 +40,8 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Pensiun::class, 'nip', 'nip_baru');
     }
+    public function riwayatTambahan()
+    {
+        return $this->belongsTo(riwayatTambahan::class, 'nip', 'nip_baru');
+    }
 }

@@ -124,7 +124,7 @@
                                 <tr role="row" class="odd">
                                     <td class="sorting_1"><img src="foto/{{$p->foto}}" width="120px" /></td>
                                     <td>{{$p->nip_baru}}</td>
-                                    <td>{{$p->gelar_depan}} {{$p->nama}} {{$p->gelar_belakang}}</td>
+                                    <td>{{$p->gelar_depan}}. {{$p->nama}}, {{$p->gelar_belakang}}</td>
                                     <td>{{$p->tempat_lahir}}, {{$p->tanggal_lahir}}</td>
                                     <td>@if($p->jns_kelamin == 'L')Laki-Laki @else Perempuan @endif</td>
                                     <td>{{$p->age}} Tahun</td>

@@ -11,9 +11,11 @@
 */
 
 use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\FungsionalController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\StrukturalController;
+use App\Http\Controllers\TambahanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +44,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tmjabatans/tambah', [StrukturalController::class, 'index']);
         Route::get('tmjabatans/hapus/{id}', [StrukturalController::class, 'hapus']);
         Route::post('tmjabatans/tambah/proses', [StrukturalController::class, 'create']);
+
+        Route::get('tmjabatanf/tambah', [FungsionalController::class, 'index']);
+        Route::get('tmjabatanf/hapus/{id}', [FungsionalController::class, 'hapus']);
+        Route::post('tmjabatanf/tambah/proses', [FungsionalController::class, 'create']);
+
+        Route::get('tmjabatanft/tambah', [TambahanController::class, 'index']);
+        Route::get('tmjabatanft/hapus/{id}', [TambahanController::class, 'hapus']);
+        Route::post('tmjabatanft/tambah/proses', [TambahanController::class, 'create']);
     });
     Route::prefix('profile')->group(function () {
         // Route::get('{id}', PegawaiController::class, 'profil');
