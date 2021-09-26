@@ -15,6 +15,7 @@ use App\Http\Controllers\FungsionalController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\RiwayatJabatanController;
 use App\Http\Controllers\StrukturalController;
 use App\Http\Controllers\TambahanController;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [PegawaiController::class, 'home']);
         Route::get('/grafik', [GrafikController::class, 'index']);
         Route::get('hapus/{id}', [PegawaiController::class, 'hapus']);
-        Route::get('profile/{id}', [PegawaiController::class, 'profile']);
         Route::post('tambah', [PegawaiController::class, 'create']);
         Route::post('edit/{id}', [PegawaiController::class, 'edit']);
         Route::get('cetak', [PegawaiController::class, 'cetak']);
         Route::get('cetak_profil/{id}', [PegawaiController::class, 'cetakProfile']);
         Route::get('export', [PegawaiController::class, 'export']);
+
+
+        Route::get('profile/{id}', [PegawaiController::class, 'profile']);
+        Route::get('jabatan/editpage/{id}/{id1}', [RiwayatJabatanController::class, 'editpage']);
 
         Route::get('tmagama/tambah', [AgamaController::class, 'index']);
         Route::get('tmagama/hapus/{id}', [AgamaController::class, 'hapus']);

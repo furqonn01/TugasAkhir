@@ -232,7 +232,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow p-1">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -240,7 +240,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <h3 class="text-primary">SISTEM INFORMASI KEPEGAWAIAN</h3>
+                    <h6 class="text-center text-primary">SISTEM INFORMASI KEPEGAWAIAN</h6>
                     <h6><sup class="text-success"></sup></h6>
 
                     <!-- Topbar Navbar -->

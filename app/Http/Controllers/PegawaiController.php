@@ -13,6 +13,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\PegawaiExport;
 use App\Imports\PegawaiImport;
 use App\Models\Golongan;
+use App\Models\RiwayatJabatan;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -38,13 +39,18 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::where('nip_baru', $id)->with([
             'agama',
             'golongan',
+            'riwayatJabatan',
+        ])->first();
+        $riwayat = RiwayatJabatan::where('nip', $id)->with([
+            'pegawai',
+            'jabatanFungsional'
         ])->first();
         //  alihkan halaman ke halaman pegawai
         //  return dd($pegawai);
         return view('pegawai.profile', [
             'pegawai' => $pegawai,
+            'jmlrp' => $riwayat
         ]);
-        //return dd($pegawai);
     }
 
     /**
