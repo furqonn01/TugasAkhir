@@ -26,6 +26,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'PegawaiController@home')->name('home');
     Route::get('/list', [PegawaiController::class, 'index']);
     Route::prefix('pegawai')->group(function () {
         Route::get('/', [PegawaiController::class, 'home']);

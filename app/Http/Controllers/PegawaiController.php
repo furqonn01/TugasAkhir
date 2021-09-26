@@ -14,6 +14,7 @@ use App\Exports\PegawaiExport;
 use App\Imports\PegawaiImport;
 use App\Models\Golongan;
 use App\Models\RiwayatJabatan;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -117,7 +118,7 @@ class PegawaiController extends Controller
     public function home()
     {
         $pegawai = Pegawai::with(['agama', 'golongan'])->orderBy('nip_baru', 'DESC')->limit(5)->get();
-
+        $now = Carbon::now("Asia/Jakarta");
         $total_pegawai = Pegawai::all()->count();
         $total_user = User::all()->count();
         $lk = Pegawai::where('jns_kelamin', 'L')->count();
@@ -128,6 +129,7 @@ class PegawaiController extends Controller
             'total_user' => $total_user,
             'lk' => $lk,
             'pr' => $pr,
+            'now' => $now
         ]);
         // return dd($peg);
         // return response()->json(['data' => $pegawai]);

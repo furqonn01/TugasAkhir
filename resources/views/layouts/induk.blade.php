@@ -240,7 +240,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <h6 class="text-center text-primary">SISTEM INFORMASI KEPEGAWAIAN</h6>
+                    <h4 class="text-primary ml-2">SISTEM INFORMASI KEPEGAWAIAN</h4>
                     <h6><sup class="text-success"></sup></h6>
 
                     <!-- Topbar Navbar -->
