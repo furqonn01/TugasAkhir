@@ -13,10 +13,10 @@ class RiwayatTambahan extends Model
 
     public function pegawai()
     {
-        return $this->hasMany('App\Models\pegawai', 'nip', 'nip_baru');
+        return $this->hasOne('App\Models\pegawai', 'nip_baru', 'nip');
     }
     public function jabatanTambahan()
     {
-        return $this->hasMany('App\Models\JabatanTambahan', 'kode_tambahan', 'id_tambahan');
+        return $this->hasOne('App\Models\JabatanTambahan', 'id_tambahan', 'kode_tambahan');
     }
 }

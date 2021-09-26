@@ -14,12 +14,9 @@
     </div>
 
     <div class="card p-3">
-        @if($jbts->pegawai !== 0)
-        <!-- start tambah jabatan -->
-
-        <form action="/pegawai/jabatan/edit/{{$jbts->nip_baru}}" method="post">
+        <form action="/pegawai/jabatan/edit/{{$jbts->nip}}" method="post">
             {{ csrf_field()}}
-            <input type="hidden" name="id_peg" value="{{$pegawai->nip_baru}}">
+            <input type="hidden" name="nip" value="{{$pegawai->nip_baru}}">
             <div class="row">
 
                 <div class="col-md-12">
@@ -31,16 +28,19 @@
 
                 <div class="col-md-6">
                     <label>Jabatan</label>
-                    <select name="kode_jbts" class="form-control">
+                    <select name="kode_jabatan" class="form-control">
+                        <option value="">--</option>
                         @foreach($jabatan as $j)
-                        <option value="{{$j->id_jabatan}}">{{$j->nama_jabatan}}</option>
+                        <option value="{{$j->id_jabatan}}" @if($jbts->kode_jabatan == $j->id_jabatan)
+                            selected @endif>{{$j->nama_jabatan}}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-6">
                     <label>No. SK</label>
-                    <input type="text" name="no_sk" class="form-control" value="{{$jbts->no_sk}}">
+                    <input type="text" name="no_sk" class="form-control"
+                        value="@if(is_null($jbts)) @else{{$jbts->no_sk}}@endif">
                 </div>
 
             </div>
@@ -48,21 +48,19 @@
             <div class="row mt-2">
                 <div class="col-md-6">
                     <label> Terhitung Mulai</label>
-                    <input type="date" name="tmt" class="form-control" value="{{$jbts->tmt}}">
+                    <input type="date" name="tmt" class="form-control"
+                        value="@if(is_null($jbts)) @else{{$jbts->tmt}}@endif">
                 </div>
                 <div class="col-md-6">
                     <label> Kenaikan Jabatan Berikutnya</label>
-                    <input type="date" name="tmt" class="form-control" value="{{$jbts->kj_berikutnya}}">
+                    <input type="date" name="kj_berikutnya" class="form-control"
+                        value="@if(is_null($jbts)) @else{{$jbts->kj_berikutnya}}@endif">
                 </div>
             </div>
             <div class="row m-3">
                 <input type="submit" value="Edit" class="btn btn-primary">
             </div>
         </form>
-        <!-- end tambah jabatan -->
-        @else
-        Belum ada data
-        @endif
 
         <!-- end card -->
     </div>

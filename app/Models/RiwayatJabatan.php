@@ -12,10 +12,10 @@ class RiwayatJabatan extends Model
 
     public function pegawai()
     {
-        return $this->hasMany(Pegawai::class, 'nip_baru', 'nip');
+        return $this->hasOne(Pegawai::class, 'nip_baru', 'nip');
     }
     public function jabatanFungsional()
     {
-        return $this->hasMany(JabatanFungsional::class, 'id_jabatan', 'kode_jabatan');
+        return $this->hasOne(JabatanFungsional::class, 'id_jabatan', 'kode_jabatan');
     }
 }

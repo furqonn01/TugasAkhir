@@ -13,8 +13,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\PegawaiExport;
 use App\Imports\PegawaiImport;
 use App\Models\Golongan;
+use App\Models\JabatanFungsional;
+use App\Models\JabatanTambahan;
 use App\Models\RiwayatJabatan;
+use App\Models\RiwayatJabatanStruktural;
+use App\Models\RiwayatTambahan;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -46,11 +51,27 @@ class PegawaiController extends Controller
             'pegawai',
             'jabatanFungsional'
         ])->first();
+        $riwayats = RiwayatJabatanStruktural::where('nip', $id)->with([
+            'pegawai',
+            'jabatanStruktural'
+        ])->first();
+        $riwayatt = RiwayatTambahan::where('nip', $id)->with([
+            'pegawai',
+            'jabatanTambahan'
+        ])->first();
+        $jab = JabatanFungsional::all();
+        $jabs = JabatanStruktural::all();
+        $jabt = JabatanTambahan::all();
         //  alihkan halaman ke halaman pegawai
         //  return dd($pegawai);
         return view('pegawai.profile', [
             'pegawai' => $pegawai,
-            'jmlrp' => $riwayat
+            'jmlrp' => $riwayat,
+            'rstruk' => $riwayats,
+            'rtam' => $riwayatt,
+            'jab' => $jab,
+            'jabs' => $jabs,
+            'jabt' => $jabt
         ]);
     }
 
@@ -254,5 +275,30 @@ class PegawaiController extends Controller
     public function export()
     {
         return Excel::download(new PegawaiExport, 'pegawai.xlsx');
+    }
+    public function import(Request $request)
+    {
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        // upload ke folder file_pegawai di dalam folder public
+        $file->move('file_pegawai', $nama_file);
+
+        // import data
+        Excel::import(new PegawaiImport, public_path('/file_pegawai/' . $nama_file));
+
+        // notifikasi dengan session
+        Session::flash('sukses', 'Data Pegawai Berhasil Diimport!');
+
+        // alihkan halaman kembali
+        return redirect('/list');
     }
 }

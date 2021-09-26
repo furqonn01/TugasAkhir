@@ -14,7 +14,7 @@ class RiwayatJabatanTambahan extends Migration
     public function up()
     {
         Schema::create('riwayat_tambahan', function (Blueprint $table) {
-            $table->unsignedBigInteger('nip');
+            $table->unsignedBigInteger('nip')->unique();
             $table->unsignedInteger('kode_tambahan');
             $table->date('tmt');
             $table->date('kj_berikutnya');

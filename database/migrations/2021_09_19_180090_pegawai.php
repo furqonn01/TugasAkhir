@@ -33,6 +33,7 @@ class Pegawai extends Migration
             $table->string('telepon')->nullable();
             $table->Integer('kode_gol')->unsigned()->nullable();
             $table->string('foto');
+            $table->timestamps();
 
 
             $table->foreign('kode_agama')->references('id_agama')->on('tm_agama')

@@ -41,7 +41,7 @@
         <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form method="post" action="/list/import" enctype="multipart/form-data">
+                <form method="post" action="/pegawai/import" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
@@ -303,8 +303,8 @@
                                                                 class="form-control" required>
                                                                 <option>---</option>
                                                                 @foreach($agama as $a)
-                                                                <option value="{{$a->id_agama}}" @if($p->
-                                                                    kode_agama == $a->id_agama) selected
+                                                                <option value="{{$a->id_agama}}" @if($p->kode_agama ==
+                                                                    $a->id_agama) selected
                                                                     @endif>{{$a->nama}}</option>
                                                                 @endforeach
                                                             </select>

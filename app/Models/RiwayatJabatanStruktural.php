@@ -12,10 +12,10 @@ class RiwayatJabatanStruktural extends Model
 
     public function pegawai()
     {
-        return $this->hasMany('App\Models\pegawai', 'nip', 'nip_baru');
+        return $this->hasOne('App\Models\pegawai', 'nip_baru', 'nip');
     }
     public function jabatanStruktural()
     {
-        return $this->hasMany(JabatanStruktural::class, 'kode_struktural', 'id_struktural');
+        return $this->hasOne(JabatanStruktural::class, 'id_struktural', 'kode_struktural');
     }
 }
