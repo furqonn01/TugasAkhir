@@ -10,7 +10,7 @@ class Pegawai extends Model
 {
     use HasFactory;
     protected $table = 'pegawai';
-    protected $fillable = ['nip_baru', 'nama', 'nip_lama', 'tanggal_lahir', 'tempat_lahir', 'jns_kelamin', 'kode_agama', 'sts_marital', 'status', 'npwp', 'nik', 'gelar_depan', 'gelar_belakang', 'alamat', 'email', 'telepon', 'foto'];
+    protected $fillable = ['nip_baru', 'kode_gol', 'nama', 'nip_lama', 'tanggal_lahir', 'tempat_lahir', 'jns_kelamin', 'kode_agama', 'sts_marital', 'status', 'npwp', 'nik', 'gelar_depan', 'gelar_belakang', 'alamat', 'email', 'telepon', 'foto'];
 
     public function getAgeAttribute()
     {

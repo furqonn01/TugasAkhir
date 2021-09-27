@@ -22,6 +22,7 @@ class PegawaiImport implements ToModel
     {
         return new Pegawai([
             'nip_baru' => $row[0],
+            'kode_gol' => $row[17],
             'nama' => $row[1],
             'nip_lama' => $row[2],
             'email' => $row[3],
@@ -38,7 +39,6 @@ class PegawaiImport implements ToModel
             'nik' => $row[14],
             'alamat' => $row[15],
             'telepon' => $row[16],
-            'kode_gol' => $row[17],
             'foto' => $row[18],
         ]);
     }
