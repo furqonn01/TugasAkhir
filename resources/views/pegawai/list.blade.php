@@ -537,10 +537,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- Tab 2 end -->
-
-                                        <!-- Tab 1 end -->
-
                                     </div>
                                 </div>
 

@@ -14,7 +14,7 @@
     </div>
 
     <div class="card p-3">
-        <form action="/pegawai/jabatant/edit/{{$jbts->nip}}" method="post">
+        <form action="/pegawai/jabatant/edit/{{$jbts->id}}" method="post">
             {{ csrf_field()}}
             <input type="hidden" name="nip" value="{{$pegawai->nip_baru}}">
             <div class="row">

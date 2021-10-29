@@ -29,7 +29,7 @@
                     </h1>
                     <a href="{{ route('login') }}" class="primary-btn banner-btn">Masuk</a>
                     &#8194;
-                    <a href="{{ route('register') }}" class="primary-btn banner-btn">Daftar</a>
+                    {{-- <a href="{{ route('register') }}" class="primary-btn banner-btn">Daftar</a> --}}
                 </div>
             </div>
         </div>

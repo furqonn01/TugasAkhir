@@ -59,7 +59,8 @@
             @endforeach
         </tbody>
     </table>
-
+    <br>
+    <label style="float: right; font-size:6pt" for="">{{$now}}</label>
 </body>
 
 </html>

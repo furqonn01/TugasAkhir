@@ -14,11 +14,13 @@ class RiwayatJabatan extends Migration
     public function up()
     {
         Schema::create('riwayat_jabatan', function (Blueprint $table) {
-            $table->unsignedBigInteger('nip')->unique();
+            $table->increments('id');
+            $table->unsignedBigInteger('nip');
             $table->unsignedInteger('kode_jabatan');
             $table->date('tmt');
             $table->date('kj_berikutnya');
             $table->string('no_sk');
+            $table->string('file_sk');
             $table->timestamps();
 
             $table->foreign('kode_jabatan')->references('id_jabatan')->on('jabatan_fungsional')

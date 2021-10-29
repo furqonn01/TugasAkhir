@@ -31,11 +31,13 @@ class PegawaiController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now("Asia/Jakarta");
         return view('pegawai.list', [
             'data' => Pegawai::all(),
             'user' => User::all(),
             'agama' => Agama::all(),
             'gol' => Golongan::all(),
+            'now' => $now,
             'jbts' => JabatanStruktural::all()
         ]);
     }
@@ -50,7 +52,10 @@ class PegawaiController extends Controller
         $riwayat = RiwayatJabatan::where('nip', $id)->with([
             'pegawai',
             'jabatanFungsional'
-        ])->first();
+        ])->latest()->first();
+        $rwyt = RiwayatJabatan::where('nip', $id)->get();
+        $rwyt2 = RiwayatJabatanStruktural::where('nip', $id)->get();
+        $rwyt3 = RiwayatTambahan::where('nip', $id)->get();
         $riwayats = RiwayatJabatanStruktural::where('nip', $id)->with([
             'pegawai',
             'jabatanStruktural'
@@ -63,12 +68,15 @@ class PegawaiController extends Controller
         $jabs = JabatanStruktural::all();
         $jabt = JabatanTambahan::all();
         //  alihkan halaman ke halaman pegawai
-        //  return dd($pegawai);
+        // return $riwayat;
         return view('pegawai.profile', [
             'pegawai' => $pegawai,
             'jmlrp' => $riwayat,
             'rstruk' => $riwayats,
             'rtam' => $riwayatt,
+            'forec' => $rwyt,
+            'forec2' => $rwyt2,
+            'forec3' => $rwyt3,
             'jab' => $jab,
             'jabs' => $jabs,
             'jabt' => $jabt
@@ -254,8 +262,9 @@ class PegawaiController extends Controller
     public function cetak()
     {
         $pegawai = Pegawai::all();
+        $now = Carbon::now("Asia/Jakarta");
 
-        $pdf = PDF::loadview('pegawai.pegawai_pdf', ['pegawai' => $pegawai]);
+        $pdf = PDF::loadview('pegawai.pegawai_pdf', ['pegawai' => $pegawai, 'now' => $now]);
         // return $pdf->download('laporan-pegawai-pdf');
         return $pdf->stream();
     }

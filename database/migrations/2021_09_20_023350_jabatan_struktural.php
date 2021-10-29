@@ -13,9 +13,10 @@ class JabatanStruktural extends Migration
      */
     public function up()
     {
-        Schema::create('jabatan_struktural', function ( Blueprint $table){
+        Schema::create('jabatan_struktural', function (Blueprint $table) {
             $table->increments('id_struktural');
             $table->string('nama_jabatan');
+            $table->timestamps();
         });
     }
 

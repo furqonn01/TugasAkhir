@@ -61,7 +61,7 @@
                         data-target="#ModalJabatanStruktural">Jabatan
                         Struktural</button>
                     <button type="button" class="btn btn-info" data-toggle="modal"
-                        data-target="#ModalJabatanfungsionaltambahan">Jabatan Tambahan</button>
+                        data-target="#ModalJabatanTambahan">Jabatan Tambahan</button>
                     <hr>
                     <button type="button" class="btn btn-success">
                         <a class="text-white" href="/pegawai/cetak_profil/{{$pegawai->nip_baru}}"> Cetak PDF
@@ -243,57 +243,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false">Tambah</a>
+                            <a class="nav-item nav-link" id="nav-hapus-tab" data-toggle="tab" href="#nav-hapus"
+                                role="tab" aria-controls="nav-hapus" aria-selected="false">Hapus</a>
+                        </div>
+                    </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home2" role="tabpanel"
-                            aria-labelledby="nav-home-tab2">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
                             <!-- start home jabatan -->
                             @if(is_null($jmlrp))
-                            <form action="/pegawai/jabatan/tambah" method="POST">
-                                {{csrf_field()}}
-
-                                <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>No SK</label>
-                                        <input type="text" name="no_sk" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Jabatan</label>
-                                        <select name="kode_jabatan" class="form-control">
-                                            <option value="">--</option>
-                                            @foreach($jab as $j)
-                                            <option value="{{$j->id_jabatan}}">{{$j->nama_jabatan}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>Terhitung Mulai</label>
-                                        <input type="date" name="tmt" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Naik Selanjutnya</label>
-                                        <input type="date" name="kj_berikutnya" class="form-control">
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-                                <div class="form-row m-2">
-                                    <input type="submit" value="Tambah" class="btn btn-success">
-                                </div>
-                            </form>
-
+                            <div class="card p-3 mt-2">
+                                Belum ada data
+                            </div>
                             @else
-                            <div class="card p-3">
+                            @foreach ($forec as $r)
+                            <div class="card mt-2 p-3">
                                 <div class="row">
                                     <div class="col-md-5">
                                         Nama Jabatan
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$jmlrp->jabatanFungsional->nama_jabatan}}
+                                        : {{$r->jabatanFungsional->nama_jabatan}}
                                     </div>
                                 </div>
                                 <hr>
@@ -302,7 +278,7 @@
                                         No SK
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$jmlrp->no_sk}}
+                                        : {{$r->no_sk}}
                                     </div>
                                 </div>
                                 <hr>
@@ -312,7 +288,7 @@
                                         Terhitung Mulai
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$jmlrp->tmt}}
+                                        : {{$r->tmt}}
                                     </div>
                                 </div>
                                 <hr>
@@ -322,7 +298,7 @@
                                         Kenaikan Jabatan Berikutnya
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$jmlrp->kj_berikutnya}}
+                                        : {{$r->kj_berikutnya}}
                                     </div>
                                 </div>
                                 <hr>
@@ -330,16 +306,88 @@
                                     <div class="col-md-5">
                                         Aksi
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
                                         :<a class="btn btn-primary btn-sm"
-                                            href="/pegawai/jabatan/editpage/{{$jmlrp->pegawai->nip_baru}}">Edit</a>
+                                            href="/pegawai/jabatan/editpage/{{$r->id}}/{{$r->nip}}">Edit</a>
+                                    </div>
+                                    <div class="col-md-3"><a class="btn btn-danger btn-sm"
+                                            href="/pegawai/jabatan/unduh/{{$r->id}}">Unduh SK</a>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                             @endif
-                            <!-- end home jabatan -->
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <!-- start home jabatan -->
+                            <div class="card p-3">
+                                <form action="/pegawai/jabatan/tambah" method="POST" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>No SK</label>
+                                            <input type="text" name="no_sk" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Jabatan</label>
+                                            <select name="kode_jabatan" class="form-control">
+                                                <option value="">--</option>
+                                                @foreach($jab as $j)
+                                                <option value="{{$j->id_jabatan}}">{{$j->nama_jabatan}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>Terhitung Mulai</label>
+                                            <input type="date" name="tmt" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Naik Selanjutnya</label>
+                                            <input type="date" name="kj_berikutnya" class="form-control">
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+                                    <div class="form-row p-2">
+                                        <div class="form-group col-8">
+                                            <div class="mb-3">
+                                                <label for="jabsk">File SK</label>
+                                                <input type="file" class="form-control" name="jabsk" id="jabsk"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <input type="submit" value="Tambah" class="btn btn-success">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-hapus" role="tabpanel" aria-labelledby="nav-hapus-tab">
+                            @if(is_null($jmlrp))
+                            <div class="card p-3">
+                                Belum ada data jabatan
+                            </div>
+                            @else
+                            @foreach($forec as $rjbtf)
+                            <form action="/pegawai/jabatan/hapus/{{$rjbtf->id}}" method="POST"
+                                enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                <input type="hidden" name="nip" value="{{$rjbtf->nip}}">
+                                <button type="submit" class="btn btn-danger btn-sm m-2">Hapus Jabatan dgn no. sk
+                                    {{$rjbtf->no_sk}}</button>
+                            </form>
+                            @endforeach
+                            <!-- end hapus diklat -->
+                            @endif
                         </div>
                     </div>
+                    <!-- end home jabatan -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -349,6 +397,7 @@
     </div>
     <!-- end modal jabatan -->
 
+    <!-- start modal jabatan -->
     <div class="modal fade" id="ModalJabatanStruktural" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -360,57 +409,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#nav-home1"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile1"
+                                role="tab" aria-controls="nav-profile1" aria-selected="false">Tambah</a>
+                            <a class="nav-item nav-link" id="nav-hapus-tab1" data-toggle="tab" href="#nav-hapus1"
+                                role="tab" aria-controls="nav-hapus" aria-selected="false">Hapus</a>
+                        </div>
+                    </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home2" role="tabpanel"
-                            aria-labelledby="nav-home-tab2">
+                        <div class="tab-pane fade show active" id="nav-home1" role="tabpanel"
+                            aria-labelledby="nav-home-tab1">
                             <!-- start home jabatan -->
                             @if(is_null($rstruk))
-                            <form action="/pegawai/jabatans/tambah" method="POST">
-                                {{csrf_field()}}
-
-                                <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>No SK</label>
-                                        <input type="text" name="no_sk" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Jabatan</label>
-                                        <select name="kode_struktural" class="form-control">
-                                            <option value="">--</option>
-                                            @foreach($jabs as $j)
-                                            <option value="{{$j->id_struktural}}">{{$j->nama_jabatan}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>Terhitung Mulai</label>
-                                        <input type="date" name="tmt" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Naik Selanjutnya</label>
-                                        <input type="date" name="kj_berikutnya" class="form-control">
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-                                <div class="form-row m-2">
-                                    <input type="submit" value="Tambah" class="btn btn-success">
-                                </div>
-                            </form>
-
+                            <div class="card body mt-2 p-3">
+                                Belum ada data
+                            </div>
                             @else
-                            <div class="card p-3">
+                            @foreach ($forec2 as $r)
+                            <div class="card mt-2 p-3">
                                 <div class="row">
                                     <div class="col-md-5">
                                         Nama Jabatan
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rstruk->jabatanStruktural->nama_jabatan}}
+                                        : {{$r->jabatanStruktural->nama_jabatan}}
                                     </div>
                                 </div>
                                 <hr>
@@ -419,7 +444,7 @@
                                         No SK
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rstruk->no_sk}}
+                                        : {{$r->no_sk}}
                                     </div>
                                 </div>
                                 <hr>
@@ -429,7 +454,7 @@
                                         Terhitung Mulai
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rstruk->tmt}}
+                                        : {{$r->tmt}}
                                     </div>
                                 </div>
                                 <hr>
@@ -439,7 +464,7 @@
                                         Kenaikan Jabatan Berikutnya
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rstruk->kj_berikutnya}}
+                                        : {{$r->kj_berikutnya}}
                                     </div>
                                 </div>
                                 <hr>
@@ -447,16 +472,86 @@
                                     <div class="col-md-5">
                                         Aksi
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
                                         :<a class="btn btn-primary btn-sm"
-                                            href="/pegawai/jabatans/editpage/{{$rstruk->pegawai->nip_baru}}">Edit</a>
+                                            href="/pegawai/jabatans/editpage/{{$r->id}}/{{$r->nip}}">Edit</a>
+                                    </div>
+                                    <div class="col-md-3"><a class="btn btn-danger btn-sm"
+                                            href="/pegawai/jabatans/unduh/{{$r->id}}">Unduh SK</a>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                             @endif
-                            <!-- end home jabatan -->
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab1">
+                            <!-- start home jabatan -->
+                            <div class="card p-3">
+                                <form action="/pegawai/jabatans/tambah" method="POST" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>No SK</label>
+                                            <input type="text" name="no_sk" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Jabatan</label>
+                                            <select name="kode_jabatan" class="form-control">
+                                                <option value="">--</option>
+                                                @foreach($jabs as $j)
+                                                <option value="{{$j->id_struktural}}">{{$j->nama_jabatan}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>Terhitung Mulai</label>
+                                            <input type="date" name="tmt" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Naik Selanjutnya</label>
+                                            <input type="date" name="kj_berikutnya" class="form-control">
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+                                    <div class="form-row p-2">
+                                        <div class="form-group col-8">
+                                            <div class="mb-3">
+                                                <label for="formFile">File SK</label>
+                                                <input type="file" class="form-control" name="fileSk" id="formFile"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <input type="submit" value="Tambah" class="btn btn-success">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-hapus1" role="tabpanel" aria-labelledby="nav-hapus-tab1">
+                            @if(is_null($rstruk))
+                            <div class="card p-3">
+                                Belum ada data jabatan
+                            </div>
+                            @else
+                            @foreach($forec2 as $rjbtf)
+                            <form action="/pegawai/jabatans/hapus/{{$rjbtf->id}}" method="POST">
+                                {{csrf_field()}}
+                                <input type="hidden" name="nip" value="{{$rjbtf->nip}}">
+                                <button type="submit" class="btn btn-danger btn-sm m-2">Hapus Jabatan dgn no. sk
+                                    {{$rjbtf->no_sk}}</button>
+                            </form>
+                            @endforeach
+                            @endif
                         </div>
                     </div>
+                    <!-- end home jabatan -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -464,70 +559,47 @@
             </div>
         </div>
     </div>
-    <!-- end modal jabatan -->
 
-    <div class="modal fade" id="ModalJabatanfungsionaltambahan" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <!-- start modal jabatan -->
+    <div class="modal fade" id="ModalJabatanTambahan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Data Jabatan Struktural</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Data Jabatan Tambahan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#nav-home2"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile2"
+                                role="tab" aria-controls="nav-profile1" aria-selected="false">Tambah</a>
+                            <a class="nav-item nav-link" id="nav-hapus-tab1" data-toggle="tab" href="#nav-hapus2"
+                                role="tab" aria-controls="nav-hapus" aria-selected="false">Hapus</a>
+                        </div>
+                    </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home2" role="tabpanel"
-                            aria-labelledby="nav-home-tab2">
+                            aria-labelledby="nav-home-tab1">
                             <!-- start home jabatan -->
                             @if(is_null($rtam))
-                            <form action="/pegawai/jabatant/tambah" method="POST">
-                                {{csrf_field()}}
-
-                                <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>No SK</label>
-                                        <input type="text" name="no_sk" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Jabatan</label>
-                                        <select name="kode_jabatan" class="form-control">
-                                            <option value="">--</option>
-                                            @foreach($jabt as $j)
-                                            <option value="{{$j->id_tambahan}}">{{$j->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-
-                                <div class="form-row p-2">
-                                    <div class="col-md-6">
-                                        <label>Terhitung Mulai</label>
-                                        <input type="date" name="tmt" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Naik Selanjutnya</label>
-                                        <input type="date" name="kj_berikutnya" class="form-control">
-                                    </div>
-                                    <!-- form-row -->
-                                </div>
-                                <div class="form-row m-2">
-                                    <input type="submit" value="Tambah" class="btn btn-success">
-                                </div>
-                            </form>
-
+                            <div class="card body mt-2 p-3">
+                                Belum ada data
+                            </div>
                             @else
-                            <div class="card p-3">
+                            @foreach ($forec3 as $r)
+                            <div class="card mt-2 p-3">
                                 <div class="row">
                                     <div class="col-md-5">
                                         Nama Jabatan
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rtam->jabatanTambahan->nama}}
+                                        : {{$r->jabatanTambahan->nama}}
                                     </div>
                                 </div>
                                 <hr>
@@ -536,7 +608,7 @@
                                         No SK
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rtam->no_sk}}
+                                        : {{$r->no_sk}}
                                     </div>
                                 </div>
                                 <hr>
@@ -546,7 +618,7 @@
                                         Terhitung Mulai
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rtam->tmt}}
+                                        : {{$r->tmt}}
                                     </div>
                                 </div>
                                 <hr>
@@ -556,7 +628,7 @@
                                         Kenaikan Jabatan Berikutnya
                                     </div>
                                     <div class="col-md-7">
-                                        : {{$rtam->kj_berikutnya}}
+                                        : {{$r->kj_berikutnya}}
                                     </div>
                                 </div>
                                 <hr>
@@ -564,16 +636,88 @@
                                     <div class="col-md-5">
                                         Aksi
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
                                         :<a class="btn btn-primary btn-sm"
-                                            href="/pegawai/jabatant/editpage/{{$rtam->pegawai->nip_baru}}">Edit</a>
+                                            href="/pegawai/jabatant/editpage/{{$r->id}}/{{$r->nip}}">Edit</a>
+                                    </div>
+                                    <div class="col-md-3"><a class="btn btn-danger btn-sm"
+                                            href="/pegawai/jabatant/unduh/{{$r->id}}">Unduh SK</a>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                             @endif
-                            <!-- end home jabatan -->
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab1">
+                            <!-- start home jabatan -->
+                            <div class="card p-3">
+                                <form action="/pegawai/jabatant/tambah" method="POST" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="nip_baru" value="{{$pegawai->nip_baru}}">
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>No SK</label>
+                                            <input type="text" name="no_sk" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Jabatan</label>
+                                            <select name="kode_jabatan" class="form-control">
+                                                <option value="">--</option>
+                                                @foreach($jabt as $j)
+                                                <option value="{{$j->id_tambahan}}">{{$j->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+
+                                    <div class="form-row p-2">
+                                        <div class="col-md-6">
+                                            <label>Terhitung Mulai</label>
+                                            <input type="date" name="tmt" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Naik Selanjutnya</label>
+                                            <input type="date" name="kj_berikutnya" class="form-control">
+                                        </div>
+                                        <!-- form-row -->
+                                    </div>
+
+                                    <div class="form-row p-2">
+                                        <div class="form-group col-8">
+                                            <div class="mb-3">
+                                                <label for="formFile">File SK</label>
+                                                <input type="file" class="form-control" name="fileSk" id="formFile"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row m-2">
+                                        <input type="submit" value="Tambah" class="btn btn-success">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-hapus2" role="tabpanel" aria-labelledby="nav-hapus-tab1">
+                            @if(is_null($forec3))
+                            <div class="card p-3">
+                                Belum ada data jabatan
+                            </div>
+                            @else
+                            @foreach($forec3 as $rjbtf)
+                            <form action="/pegawai/jabatant/hapus/{{$rjbtf->id}}" method="POST">
+                                {{csrf_field()}}
+                                <input type="hidden" name="nip" value="{{$rjbtf->nip}}">
+                                <button type="submit" class="btn btn-danger btn-sm m-2">Hapus Jabatan dgn no. sk
+                                    {{$rjbtf->no_sk}}</button>
+                            </form>
+                            @endforeach
+                            @endif
                         </div>
                     </div>
+                    <!-- end home jabatan -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

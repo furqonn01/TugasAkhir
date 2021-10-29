@@ -14,11 +14,13 @@ class RiwayatStruktural extends Migration
     public function up()
     {
         Schema::create('riwayat_struktural', function (Blueprint $table) {
-            $table->unsignedBigInteger('nip')->unique();
+            $table->increments('id');
+            $table->unsignedBigInteger('nip');
             $table->unsignedInteger('kode_struktural');
             $table->date('tmt');
             $table->date('kj_berikutnya');
             $table->string('no_sk');
+            $table->string('file_sk');
             $table->timestamps();
 
             $table->foreign('kode_struktural')->references('id_struktural')->on('jabatan_struktural')

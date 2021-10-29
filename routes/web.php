@@ -43,16 +43,22 @@ Route::middleware(['auth'])->group(function () {
         Route::post('import', [PegawaiController::class, 'import']);
 
         Route::get('profile/{id}', [PegawaiController::class, 'profile']);
+        Route::get('jabatan/unduh/{id}', [RiwayatJabatanController::class, 'unduh']);
         Route::post('jabatan/tambah', [RiwayatJabatanController::class, 'tambah']);
-        Route::get('jabatan/editpage/{id1}', [RiwayatJabatanController::class, 'editpage']);
+        Route::get('jabatan/editpage/{id}/{id1}', [RiwayatJabatanController::class, 'editpage']);
+        Route::post('jabatan/hapus/{id}', [RiwayatJabatanController::class, 'hapus']);
         Route::post('jabatan/edit/{id}', [RiwayatJabatanController::class, 'edit']);
 
         Route::post('jabatans/tambah', [RiwayatJabatanStrukturalController::class, 'tambah']);
-        Route::get('jabatans/editpage/{id1}', [RiwayatJabatanStrukturalController::class, 'editpage']);
+        Route::get('jabatans/unduh/{id}', [RiwayatJabatanStrukturalController::class, 'unduh']);
+        Route::get('jabatans/editpage/{id}/{id1}', [RiwayatJabatanStrukturalController::class, 'editpage']);
+        Route::post('jabatans/hapus/{id}', [RiwayatJabatanStrukturalController::class, 'hapus']);
         Route::post('jabatans/edit/{id}', [RiwayatJabatanStrukturalController::class, 'edit']);
 
         Route::post('jabatant/tambah', [RiwayatJabatanTambahanController::class, 'tambah']);
-        Route::get('jabatant/editpage/{id1}', [RiwayatJabatanTambahanController::class, 'editpage']);
+        Route::get('jabatant/unduh/{id}', [RiwayatJabatanTambahanController::class, 'unduh']);
+        Route::get('jabatant/editpage/{id}/{id1}', [RiwayatJabatanTambahanController::class, 'editpage']);
+        Route::post('jabatant/hapus/{id}', [RiwayatJabatanTambahanController::class, 'hapus']);
         Route::post('jabatant/edit/{id}', [RiwayatJabatanTambahanController::class, 'edit']);
 
         Route::get('tmagama/tambah', [AgamaController::class, 'index']);
